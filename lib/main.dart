@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/data.dart';
 import 'package:flutter_application_1/student.dart';
 
 void main(List<String> args) {
   runApp(MaterialApp(
-    home: MyFirstUi(),
+    home: NewsApp(),
   ));
 }
 
@@ -78,3 +79,55 @@ class MyFirstUi extends StatelessWidget {
 }
 // vs code plugin to display images in compile time
 // image_preview
+
+class NewsApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('News App'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+            children: news.map((e) {
+          return Column(
+            children: [
+              SizedBox(
+                height: 300,
+                width: double.infinity,
+                child: Image.network(
+                  e['urlToImage'] ?? '',
+                  fit: BoxFit.cover,
+                  errorBuilder: (x, y, z) {
+                    return Image.asset(
+                      'images/image1.jpg',
+                      fit: BoxFit.cover,
+                    );
+                  },
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      e['title'],
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                    Text(e['description']),
+                  ],
+                ),
+              ),
+              Divider(
+                color: Colors.black,
+              )
+            ],
+          );
+        }).toList()),
+      ),
+    );
+  }
+}
