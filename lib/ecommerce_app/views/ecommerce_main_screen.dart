@@ -22,16 +22,30 @@ class EcommerceMainScreen extends StatelessWidget {
       ),
       body: Container(
         margin: EdgeInsets.all(20),
-        child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                mainAxisExtent: 800,
-                crossAxisCount: 2,
-                mainAxisSpacing: 20,
-                crossAxisSpacing: 20),
-            itemCount: products.length,
-            itemBuilder: (c, index) {
-              return ProductWidget(products[index]);
-            }),
+        child: Column(
+          children: [
+            Text(
+              'Products',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            ),
+            Expanded(
+              child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      mainAxisExtent: 800,
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 20,
+                      crossAxisSpacing: 20),
+                  itemCount: products.length,
+                  itemBuilder: (c, index) {
+                    return ProductWidget(products[index]);
+                  }),
+            ),
+            Text(
+              'Page end',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
       ),
     );
   }
