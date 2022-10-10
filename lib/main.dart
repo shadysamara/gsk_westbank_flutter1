@@ -3,10 +3,11 @@ import 'package:flutter_application_1/data.dart';
 import 'package:flutter_application_1/ecommerce_app/views/ecommerce_main_screen.dart';
 import 'package:flutter_application_1/stateful_lecture/stateful_screen.dart';
 import 'package:flutter_application_1/student.dart';
+import 'package:flutter_application_1/task_managment/main_tasks_screen.dart';
 
 void main(List<String> args) {
   runApp(MaterialApp(
-    home: MyPostScreen(),
+    home: MainTaskScreen(),
   ));
 }
 
