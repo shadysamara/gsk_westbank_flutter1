@@ -8,6 +8,7 @@ List<PostModel> posts = [
       postUserModel: users[0]),
   PostModel(
       content: "I Love coding",
+      isFavourite: true,
       image:
           'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cG9zdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
       postUserModel: users[1]),
@@ -23,6 +24,7 @@ List<PostModel> posts = [
       postUserModel: users[2]),
   PostModel(
       content: "i love colors",
+      isFavourite: true,
       image:
           'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fHBvc3R8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
       postUserModel: users[2]),

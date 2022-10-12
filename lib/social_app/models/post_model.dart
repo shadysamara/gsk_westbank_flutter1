@@ -1,7 +1,7 @@
 class PostModel {
   String? content;
   String? image;
-  bool? isFavourite;
+  bool isFavourite;
   PostUserModel? postUserModel;
   PostModel({
     this.content,

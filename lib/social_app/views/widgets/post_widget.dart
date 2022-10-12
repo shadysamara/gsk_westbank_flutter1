@@ -1,25 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/social_app/models/post_model.dart';
 
 class PostWidget extends StatelessWidget {
+  PostModel postModel;
+  PostWidget(this.postModel);
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           margin: EdgeInsets.all(10),
           child: Row(
             children: [
               CircleAvatar(
-                backgroundImage: AssetImage('images/image1.jpg'),
-                radius: 40,
+                backgroundImage: NetworkImage(postModel.postUserModel!.image!),
+                radius: 30,
               ),
               SizedBox(
                 width: 10,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text('Ahmed Hassan'), Text('Since 23 minuites')],
+                children: [
+                  Text(postModel.postUserModel!.name!),
+                  Text('Since 23 minuites')
+                ],
               )
             ],
           ),
@@ -27,17 +34,18 @@ class PostWidget extends StatelessWidget {
         Container(
           height: 400,
           width: double.infinity,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
               image: DecorationImage(
-                  fit: BoxFit.cover, image: AssetImage('images/image1.jpg'))),
+                  fit: BoxFit.cover, image: NetworkImage(postModel.image!))),
         ),
         Container(
           margin: EdgeInsets.all(10),
           child: Row(
-            children: const [
+            children: [
               Icon(
                 Icons.favorite,
                 size: 30,
+                color: postModel.isFavourite ? Colors.red : Colors.grey,
               ),
               SizedBox(
                 width: 10,
@@ -49,7 +57,10 @@ class PostWidget extends StatelessWidget {
             ],
           ),
         ),
-        Text('Hello this is my first post')
+        Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: Text(postModel.content ?? '')),
+        const Divider()
       ],
     );
   }
