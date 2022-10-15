@@ -13,6 +13,7 @@ class _MainSocialAppScreenState extends State<MainSocialAppScreen> {
   PageController pageController = PageController();
 
   int currentIndex = 0;
+  String title = 'github lecture';
 
   @override
   Widget build(BuildContext context) {
