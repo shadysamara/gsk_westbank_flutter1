@@ -1,15 +1,42 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data.dart';
 import 'package:flutter_application_1/ecommerce_app/views/ecommerce_main_screen.dart';
+import 'package:flutter_application_1/localization/localized_screen.dart';
+import 'package:flutter_application_1/responsive_Design/responsive_screen.dart';
 import 'package:flutter_application_1/social_app/views/screens/main_socialapp_screen.dart';
 import 'package:flutter_application_1/stateful_lecture/stateful_screen.dart';
 import 'package:flutter_application_1/student.dart';
 import 'package:flutter_application_1/task_managment/main_tasks_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main(List<String> args) {
-  runApp(MaterialApp(
-    home: MainSocialAppScreen(),
-  ));
+void main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  runApp(EasyLocalization(
+      supportedLocales: [Locale('ar'), Locale('en'), Locale('fr')],
+      path:
+          'assets/translations', // <-- change the path of the translation files
+      fallbackLocale: Locale('en'),
+      child: AppInit()));
+}
+
+class AppInit extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      builder: (context, child) {
+        return MaterialApp(
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          home: LocalizedScreen(),
+        );
+      },
+    );
+  }
 }
 
 class MyFirstUi extends StatelessWidget {

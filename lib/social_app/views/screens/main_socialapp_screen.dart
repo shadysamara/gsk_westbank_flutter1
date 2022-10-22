@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/social_app/views/screens/all_posts..dart';
 import 'package:flutter_application_1/social_app/views/screens/favourite_screen.dart';
+import 'package:flutter_application_1/social_app/views/widgets/custom_appbar.dart';
 
 class MainSocialAppScreen extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _MainSocialAppScreenState extends State<MainSocialAppScreen> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(title: Text('Social Media App')),
+      appBar: customAppbar(),
       body: PageView(
           controller: pageController,
           children: [AllPostsScreen(), LikedPostsScreen()]),
