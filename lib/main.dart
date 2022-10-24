@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data.dart';
 import 'package:flutter_application_1/ecommerce_app/views/ecommerce_main_screen.dart';
 import 'package:flutter_application_1/localization/localized_screen.dart';
+import 'package:flutter_application_1/navigation/page1.dart';
+import 'package:flutter_application_1/navigation/page2.dart';
 import 'package:flutter_application_1/responsive_Design/responsive_screen.dart';
 import 'package:flutter_application_1/social_app/views/screens/main_socialapp_screen.dart';
 import 'package:flutter_application_1/stateful_lecture/stateful_screen.dart';
 import 'package:flutter_application_1/student.dart';
 import 'package:flutter_application_1/task_managment/main_tasks_screen.dart';
+import 'package:flutter_application_1/task_managment/views/screens/new_task_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main(List<String> args) async {
@@ -29,11 +32,37 @@ class AppInit extends StatelessWidget {
       designSize: const Size(375, 812),
       builder: (context, child) {
         return MaterialApp(
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          home: LocalizedScreen(),
-        );
+            routes: {
+              'page1': (context) => Page1(),
+              'newTaskScreen': (context) => NewTaskScreen(
+                  (ModalRoute.of(context)!.settings.arguments) as Function),
+              'page2': (context) => Page2(
+                  ModalRoute.of(context)?.settings.arguments.toString() ?? '')
+            },
+            onGenerateRoute: (RouteSettings settings) {
+              String routeName = settings.name ?? '';
+              dynamic routeArguments = settings.arguments;
+              switch (routeName) {
+                case "screen2":
+                  return MaterialPageRoute(builder: (context) {
+                    return Page2(routeArguments.toString());
+                  });
+              }
+            },
+            onUnknownRoute: (RouteSettings RouteSettings) {
+              return MaterialPageRoute(builder: (context) {
+                return Scaffold(
+                    backgroundColor: Colors.red,
+                    body: Center(
+                      child:
+                          Text('Route ${RouteSettings.name ?? ''} not found'),
+                    ));
+              });
+            },
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            home: MainTaskScreen());
       },
     );
   }

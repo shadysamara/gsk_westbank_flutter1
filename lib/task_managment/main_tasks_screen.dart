@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_application_1/task_managment/data/dymmy_data.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_application_1/task_managment/models/task_model.dart';
 import 'package:flutter_application_1/task_managment/views/screens/all_tasks_screen.dart';
 import 'package:flutter_application_1/task_managment/views/screens/complete_tasks_screen.dart';
 import 'package:flutter_application_1/task_managment/views/screens/inComplete_Tasks.dart';
+import 'package:flutter_application_1/task_managment/views/screens/new_task_screen.dart';
 
 class MainTaskScreen extends StatefulWidget {
   @override
@@ -24,6 +27,11 @@ class _MainTaskScreenState extends State<MainTaskScreen>
     tabController = TabController(length: 3, vsync: this);
   }
 
+  addNewTask(TaskModel task) {
+    tasks.add(task);
+    setState(() {});
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -40,9 +48,16 @@ class _MainTaskScreenState extends State<MainTaskScreen>
 
   @override
   Widget build(BuildContext context) {
+    log('main scren has been rebuilt');
     // TODO: implement build
     return MediaQuery.of(context).orientation == Orientation.portrait
         ? Scaffold(
+            floatingActionButton: FloatingActionButton(
+                child: Icon(Icons.add),
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamed('newTaskScreen', arguments: addNewTask);
+                }),
             drawer: Drawer(
               child: DrawerColumn(tabController: tabController),
             ),
@@ -118,6 +133,7 @@ class DrawerColumn extends StatelessWidget {
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
             tabController.animateTo(0);
+            Navigator.pop(context);
           },
         ),
         ListTile(
@@ -127,6 +143,7 @@ class DrawerColumn extends StatelessWidget {
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
             tabController.animateTo(1);
+            Navigator.pop(context);
           },
         ),
         ListTile(
@@ -136,6 +153,7 @@ class DrawerColumn extends StatelessWidget {
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
             tabController.animateTo(2);
+            Navigator.pop(context);
           },
         ),
       ],
