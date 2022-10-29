@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/router/app_router.dart';
 
 import 'package:flutter_application_1/task_managment/data/dymmy_data.dart';
 import 'package:flutter_application_1/task_managment/models/task_model.dart';
@@ -55,8 +56,8 @@ class _MainTaskScreenState extends State<MainTaskScreen>
             floatingActionButton: FloatingActionButton(
                 child: Icon(Icons.add),
                 onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed('newTaskScreen', arguments: addNewTask);
+                  AppRouter.goToWidget(NewTaskScreen(addNewTask));
+                  AppRouter.goToScreen('routeName');
                 }),
             drawer: Drawer(
               child: DrawerColumn(tabController: tabController),
