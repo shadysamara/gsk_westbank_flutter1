@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data.dart';
 import 'package:flutter_application_1/ecommerce_app/views/ecommerce_main_screen.dart';
 import 'package:flutter_application_1/local_storage/file_jandle_test.dart';
+import 'package:flutter_application_1/local_storage/local_storage_helper.dart';
+import 'package:flutter_application_1/local_storage/welcome_screen.dart';
 import 'package:flutter_application_1/localization/localized_screen.dart';
 import 'package:flutter_application_1/navigation/page1.dart';
 import 'package:flutter_application_1/navigation/page2.dart';
@@ -18,6 +20,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await FileHelper.initSp();
   runApp(EasyLocalization(
       supportedLocales: [Locale('ar'), Locale('en'), Locale('fr')],
       path:
@@ -36,7 +39,7 @@ class AppInit extends StatelessWidget {
         return MaterialApp(
           navigatorKey: AppRouter.navigationKey,
           routes: {
-            '/': (context) => FileHandleTest(),
+            '/': (context) => WelcomeScreen(),
             'page1': (context) => Page1(),
             'newTaskScreen': (context) => NewTaskScreen(
                 (ModalRoute.of(context)!.settings.arguments) as Function),

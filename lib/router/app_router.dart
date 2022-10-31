@@ -12,7 +12,13 @@ class AppRouter {
     navigationKey.currentState!.pushNamed(routeName, arguments: arguments);
   }
 
-  static goToScreenAndReplace(String routeName) {
+  static goToScreenAndReplacenAmed(String routeName) {
     navigationKey.currentState!.pushReplacementNamed(routeName);
+  }
+
+  static goToScreenAndReplace(Widget screen) {
+    navigationKey.currentState!.pushReplacement(MaterialPageRoute(builder: (x) {
+      return screen;
+    }));
   }
 }

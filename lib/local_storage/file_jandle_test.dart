@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/local_storage/display_all_file_content.dart';
-import 'package:flutter_application_1/local_storage/file_helper.dart';
+import 'package:flutter_application_1/local_storage/local_storage_helper.dart';
 
 class FileHandleTest extends StatefulWidget {
   @override
@@ -29,17 +29,18 @@ class _FileHandleTestState extends State<FileHandleTest> {
           ),
           ElevatedButton(
             onPressed: () {
-              FileHelper.writeOnFile('hello from gaza');
+              FileHelper.saveDataInSp(
+                  'this is my first words in shared prefences');
             },
-            child: Text('Write on file'),
+            child: Text('Write on sp'),
           ),
           ElevatedButton(
-            onPressed: () async {
-              String content = await FileHelper.readFromFile();
-              this.content = content;
+            onPressed: () {
+              String? content = FileHelper.getDataFromSp();
+              this.content = content ?? 'no value found';
               setState(() {});
             },
-            child: Text('Read from file'),
+            child: Text('Read from sp'),
           ),
           Text(content)
         ],
