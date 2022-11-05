@@ -21,4 +21,15 @@ class AppRouter {
       return screen;
     }));
   }
+
+  static showCustomDialoug(String message, String title) {
+    showDialog(
+        context: navigationKey.currentContext!,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(message),
+          );
+        });
+  }
 }

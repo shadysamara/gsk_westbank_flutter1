@@ -7,7 +7,8 @@ import 'package:flutter_application_1/task_managment/views/widgets/task_widget.d
 
 class CompleteTasksScreen extends StatelessWidget {
   Function function;
-  CompleteTasksScreen(this.function);
+  List<TaskModel> tasks;
+  CompleteTasksScreen(this.tasks, this.function);
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

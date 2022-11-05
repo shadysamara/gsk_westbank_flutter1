@@ -5,7 +5,8 @@ import 'package:flutter_application_1/task_managment/views/widgets/task_widget.d
 
 class InCompleteTasksScreen extends StatelessWidget {
   Function function;
-  InCompleteTasksScreen(this.function);
+  List<TaskModel> tasks;
+  InCompleteTasksScreen(this.tasks, this.function);
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

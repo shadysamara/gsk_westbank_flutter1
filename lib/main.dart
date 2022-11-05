@@ -14,6 +14,7 @@ import 'package:flutter_application_1/router/app_router.dart';
 import 'package:flutter_application_1/social_app/views/screens/main_socialapp_screen.dart';
 import 'package:flutter_application_1/stateful_lecture/stateful_screen.dart';
 import 'package:flutter_application_1/student.dart';
+import 'package:flutter_application_1/task_managment/data/todo_db_helper.dart';
 import 'package:flutter_application_1/task_managment/main_tasks_screen.dart';
 import 'package:flutter_application_1/task_managment/views/screens/new_task_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,7 +24,7 @@ void main(List<String> args) async {
   await EasyLocalization.ensureInitialized();
   await FileHelper.initSp();
 
-  SqlHelper.sqlHelper.connectToDatabase();
+  await TodoDbHelper.todoDbHelper.connectToDatabase();
   runApp(EasyLocalization(
       supportedLocales: [Locale('ar'), Locale('en'), Locale('fr')],
       path:
@@ -42,7 +43,7 @@ class AppInit extends StatelessWidget {
         return MaterialApp(
           navigatorKey: AppRouter.navigationKey,
           routes: {
-            '/': (context) => WelcomeScreen(),
+            '/': (context) => MainTaskScreen(),
             'page1': (context) => Page1(),
             'newTaskScreen': (context) => NewTaskScreen(
                 (ModalRoute.of(context)!.settings.arguments) as Function),

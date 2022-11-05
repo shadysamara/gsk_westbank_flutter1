@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/router/app_router.dart';
 
 import 'package:flutter_application_1/task_managment/data/dymmy_data.dart';
+import 'package:flutter_application_1/task_managment/data/todo_db_helper.dart';
 import 'package:flutter_application_1/task_managment/models/task_model.dart';
 import 'package:flutter_application_1/task_managment/views/screens/all_tasks_screen.dart';
 import 'package:flutter_application_1/task_managment/views/screens/complete_tasks_screen.dart';
@@ -33,11 +34,18 @@ class _MainTaskScreenState extends State<MainTaskScreen>
     setState(() {});
   }
 
+  List<TaskModel> tasks = [];
+  getTasksFromDb() async {
+    tasks = await TodoDbHelper.todoDbHelper.getAllTasks();
+    setState(() {});
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     initalizeTabController();
+    getTasksFromDb();
   }
 
   @override
@@ -57,7 +65,6 @@ class _MainTaskScreenState extends State<MainTaskScreen>
                 child: Icon(Icons.add),
                 onPressed: () {
                   AppRouter.goToWidget(NewTaskScreen(addNewTask));
-                  AppRouter.goToScreen('routeName');
                 }),
             drawer: Drawer(
               child: DrawerColumn(tabController: tabController),
@@ -67,6 +74,7 @@ class _MainTaskScreenState extends State<MainTaskScreen>
               bottom: CustomTabBar(tabController: tabController),
             ),
             body: ScaffoldBody(
+              tasks: tasks,
               checkTask: checkTask,
               tabController: tabController,
             ),
@@ -81,6 +89,7 @@ class _MainTaskScreenState extends State<MainTaskScreen>
               Expanded(
                   flex: 2,
                   child: ScaffoldBody(
+                    tasks: tasks,
                     checkTask: checkTask,
                     tabController: tabController,
                   ))
@@ -90,10 +99,12 @@ class _MainTaskScreenState extends State<MainTaskScreen>
 }
 
 class ScaffoldBody extends StatelessWidget {
+  final List<TaskModel> tasks;
   final TabController tabController;
   final Function checkTask;
   const ScaffoldBody({
     Key? key,
+    required this.tasks,
     required this.tabController,
     required this.checkTask,
   }) : super(key: key);
@@ -102,9 +113,9 @@ class ScaffoldBody extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return TabBarView(controller: tabController, children: [
-      AllTasksScreen(checkTask),
-      CompleteTasksScreen(checkTask),
-      InCompleteTasksScreen(checkTask)
+      AllTasksScreen(tasks, checkTask),
+      CompleteTasksScreen(tasks, checkTask),
+      InCompleteTasksScreen(tasks, checkTask)
     ]);
   }
 }

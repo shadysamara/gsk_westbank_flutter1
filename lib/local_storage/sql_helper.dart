@@ -13,17 +13,25 @@ class SqlHelper {
   connectToDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
     String path = '${directory.path}/tasks.db';
-    database = await openDatabase(path, version: 1, onCreate: (db, v) {
+    database = await openDatabase(path, version: 3, onCreate: (db, v) {
       log('the database is created');
       db.execute('''
   CREATE TABLE tasks(
-  id int primary key autoincrement,
+  id INTEGER primary key autoincrement,
   taskName varchar(50),
-  isComplete int
+  isComplete INTEGER
 )
 ''');
     }, onOpen: (db) {
       log('the database is connected');
+    }, onUpgrade: (db, oldVersion, newVersion) {
+      db.execute('''
+  CREATE TABLE tasks(
+  id INTEGER primary key autoincrement,
+  taskName varchar(50),
+  isComplete INTEGER
+)
+''');
     });
   }
 
@@ -40,4 +48,10 @@ class SqlHelper {
   getOneTask() {}
   deleteTask() {}
   updateTask() {}
+  getAllTables() async {
+    List<Map<String, Object?>> tables = await database.query('sqlite_master');
+    tables.forEach((element) {
+      log(element['name'].toString());
+    });
+  }
 }

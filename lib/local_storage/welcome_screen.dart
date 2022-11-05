@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/local_storage/local_storage_helper.dart';
+import 'package:flutter_application_1/local_storage/sql_helper.dart';
 import 'package:flutter_application_1/router/app_router.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -50,7 +51,9 @@ class OldUSer extends StatelessWidget {
     // TODO: implement build
     return Scaffold(
       body: Center(
-        child: Text('Old User'),
+        child: RaisedButton(onPressed: () {
+          SqlHelper.sqlHelper.insertNewTask();
+        }),
       ),
     );
   }

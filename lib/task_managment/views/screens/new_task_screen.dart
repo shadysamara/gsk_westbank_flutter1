@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/task_managment/data/dymmy_data.dart';
+import 'package:flutter_application_1/task_managment/data/todo_db_helper.dart';
 import 'package:flutter_application_1/task_managment/models/task_model.dart';
 
 class NewTaskScreen extends StatefulWidget {
@@ -38,7 +39,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
           ElevatedButton(
               onPressed: () {
                 TaskModel taskModel = TaskModel(controller.text, isComplete);
-                tasks.add(taskModel);
+                TodoDbHelper.todoDbHelper.insertNewTask(taskModel);
                 Navigator.of(context).pop();
               },
               child: Text('Add New Task'))
